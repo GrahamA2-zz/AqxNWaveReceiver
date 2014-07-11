@@ -20,8 +20,11 @@ public class NWaveResponse {
         this.station_id = station_id;
         this.data = data;
         
+        String illegal = "[^a-zA-Z0-9\\.\\-]";
+		String tempmessage_time = message_time.replaceAll(illegal, "-");
+		
 		try {
-			PrintWriter out = new PrintWriter("./log/" + device_id + "_" + message_time + "_" + signal + "_" + station_id + ".txt");
+			PrintWriter out = new PrintWriter("./log/" + device_id + "_" + signal + "_" + station_id + "_" + tempmessage_time + ".txt");
             out.println(data);
 			out.flush();
             out.close();

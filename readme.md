@@ -40,7 +40,7 @@ run the Jar
 If you are using Gradle, you can run your service at the command line this way:
 
 ```sh
-gradle clean build && java -jar build/libs/gs-rest-service-0.1.0.jar
+gradle clean build && java -jar build/libs/nwave-rest-service-0.1.0.jar
 
 ```
 

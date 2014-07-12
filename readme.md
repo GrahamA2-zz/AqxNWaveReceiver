@@ -9,6 +9,14 @@ NWave
   - Runs on Port:80 set in \src\main\resources
 
 
+URL to add data
+-----------
+
+```sh
+  http://aqxtest.ddns.net/inc?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
+
+```
+
 Version
 ----
 
@@ -17,7 +25,7 @@ Version
 Tech
 -----------
 
-NWave uses Spring boot to create a simple self contined servlet container
+NWave uses Spring boot to create a simple self contained servlet container
 
 Running the Service
 --------------
@@ -33,7 +41,7 @@ run the Jar
 
 
 ```sh
-  java -jar build/libs/gs-rest-service-0.1.0.jar
+  java -jar build/libs/nwave-rest-service-0.1.0.jar
 
 ```
 

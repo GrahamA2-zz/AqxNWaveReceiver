@@ -21,7 +21,7 @@ public class NWaveController {
     	LOGGER = LoggerFactory.getLogger(NWaveController.class);
     }
     //http://yourdomain.com/inc?id={device_id}&time={message_time}&signal={signal}&station={station_id}&data={data} 
-    @RequestMapping("/")
+    @RequestMapping("/inc")
     public NWaveResponse greeting(@RequestParam(value="id", required=false, defaultValue="No ID") String device_id,
                              @RequestParam(value="time", required=false, defaultValue="No Time") String message_time,
                              @RequestParam(value="signal", required=false, defaultValue="No siginal") String signal,

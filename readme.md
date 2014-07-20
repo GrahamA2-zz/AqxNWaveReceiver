@@ -73,6 +73,7 @@ If you are using Gradle, you can run your service at the command line this way:
 
 ```sh
 gradle clean build && java -jar build/libs/nwave-rest-service-0.1.0.jar
+"C:\Program Files\Java\jdk1.8.0_05\bin\java" -jar build/libs/nwave-rest-service-0.1.0.jar
 
 ```
 

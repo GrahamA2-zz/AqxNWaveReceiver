@@ -13,7 +13,31 @@ URL to add data
 -----------
 
 ```sh
-  http://aqxtest.ddns.net/inc?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
+
+http://aqxtest.ddns.net/inc?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
+
+http://aqxtest.ddns.net/?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
+```
+
+
+URL check status of the service
+-----------
+
+```sh
+http://aqxtest.ddns.net/status
+
+```
+
+Testing the service using CURL
+-----------
+
+```sh
+
+curl --data "id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000"  http://aqxtest.ddns.net
+
+curl --data "id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000"  http://aqxtest.ddns.net/inc
+
+curl -i http://aqxtest.ddns.net/status
 
 ```
 
@@ -51,6 +75,8 @@ If you are using Gradle, you can run your service at the command line this way:
 gradle clean build && java -jar build/libs/nwave-rest-service-0.1.0.jar
 
 ```
+
+
 
 You can alternatively run the app directly from Gradle like this:
 

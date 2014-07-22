@@ -24,8 +24,10 @@ public class NWaveResponse {
 		String tempmessage_time = message_time.replaceAll(illegal, "-");
 		
 		try {
-			PrintWriter out = new PrintWriter("./log/" + device_id + "_" + signal + "_" + station_id + "_" + tempmessage_time + ".txt");
-            out.println(data);
+			//TODO Append to the file
+			PrintWriter out = new PrintWriter("./log/" + device_id + "_" + signal + "_" + station_id + ".csv");
+			
+			out.println(message_time + "," + data);
 			out.flush();
             out.close();
 		} catch (FileNotFoundException e) {

@@ -1,10 +1,10 @@
 package uk.co.aquamatix;
 
 import java.sql.Date;
-import java.util.Calendar;
+
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.log4j.PropertyConfigurator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +19,10 @@ public class NWaveController {
     private static Logger LOGGER;
     
    static {
-    	PropertyConfigurator.configure("log4j.properties");
     	LOGGER = LoggerFactory.getLogger(NWaveController.class);
     }
+	
+	
     //http://yourdomain.com/inc?id={device_id}&time={message_time}&signal={signal}&station={station_id}&data={data} 
     @RequestMapping(value = {"/inc","/"})
     public NWaveResponse processVersion1(@RequestParam(value="id", required=false, defaultValue="No ID") String device_id,
@@ -34,18 +35,8 @@ public class NWaveController {
     }
     	
 	@RequestMapping("/status")
-    public String status() {
-    	
-		Calendar c = Calendar.getInstance();
-		
-		String page = "<!DOCTYPE html>\n"+
-                      "<html>\n"+
-                      "<body>\n"+
-                      "<h1>AquamatiX NWave Receiver</h1>\n"+
-                      "<p>Called at: " +  c.getTime().toGMTString()  + " </p>\n"+
-                      "</body>\n"+
-                      "</html>\n";
-		return page;
+    public NWaveStatusResponse status() {
+		return new NWaveStatusResponse();
     }
 	
 	

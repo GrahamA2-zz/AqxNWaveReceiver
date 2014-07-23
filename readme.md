@@ -14,7 +14,7 @@ URL to add data
 
 ```sh
 
-http://aqxtest.ddns.net/inc?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
+http://aqxtest.ddns.net/inc?id=66498642&time=56&signal=12&station=1096&data=28000000000000000000000
 
 http://aqxtest.ddns.net/?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
 ```

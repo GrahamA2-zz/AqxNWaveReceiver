@@ -1,7 +1,14 @@
 package uk.co.aquamatix;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +18,9 @@ public class NWaveResponse {
 	private final static Logger LOGGER = LoggerFactory.getLogger(NWaveResponse.class);
 	private String device_id, message_time, signal, station_id, data;
     private long id;
+    
+    
+    
 	
     public NWaveResponse(long id, String device_id, String message_time, String signal, String station_id, String data ) {
          
@@ -25,13 +35,14 @@ public class NWaveResponse {
 		
 		try {
 			//TODO Append to the file
-			PrintWriter out = new PrintWriter("./log/" + device_id + "_" + signal + "_" + station_id + ".csv");
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("./log/" + device_id + "_" + signal + "_" + station_id + ".csv", true)));
 			out.println(message_time + "," + data);
 			out.flush();
             out.close();
-		} catch (FileNotFoundException e) {
+		} catch ( IOException e) {
 			LOGGER.error(e.getLocalizedMessage());
 		}
+
         
     }
 

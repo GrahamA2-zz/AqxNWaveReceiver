@@ -10,7 +10,7 @@ public class NWaveModem {
 	
 	private String device_id, signal, station_id;
 
-	private Map<Long, Double> data = new HashMap<>();
+	private Map<Long, Double> data = new HashMap<Long, Double>();
 	
 	
 	public NWaveModem(String device_id, String signal, String station_id) {

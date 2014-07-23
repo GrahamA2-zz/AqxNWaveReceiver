@@ -23,7 +23,7 @@ public class NWaveController {
     private static Logger LOGGER;
     private static Calendar calender = Calendar.getInstance();
     
-    private static Map<String, NWaveModem> modems = new HashMap<>();
+    private static Map<String, NWaveModem> modems = new HashMap<String, NWaveModem>();
     
    static {
     	LOGGER = LoggerFactory.getLogger(NWaveController.class);

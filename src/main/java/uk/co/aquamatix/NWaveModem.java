@@ -10,7 +10,7 @@ public class NWaveModem {
 	
 	private String device_id, signal, station_id;
 
-	private Map<Long, Double> data = new HashMap<Long, Double>();
+	private Map<Double, String> data = new HashMap<Double, String>();
 	
 	
 	public NWaveModem(String device_id, String signal, String station_id) {
@@ -21,10 +21,10 @@ public class NWaveModem {
 	}
 	
     public void addData(String time, String value) {
-    	data.put(Long.parseLong(time),Double.parseDouble(value));
+    	data.put(Double.parseDouble(time),value);
     }
     
-    public Map<Long, Double> getData(){
+    public Map<Double, String> getData(){
     	return Collections.unmodifiableMap(data);
     }
     

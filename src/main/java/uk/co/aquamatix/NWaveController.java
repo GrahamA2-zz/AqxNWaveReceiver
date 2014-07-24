@@ -21,7 +21,7 @@ public class NWaveController {
 
     private final AtomicLong counter = new AtomicLong();
     private static Logger LOGGER;
-    private static Calendar calender = Calendar.getInstance();
+
     
     private static Map<String, NWaveModem> modems = new HashMap<String, NWaveModem>();
     
@@ -31,7 +31,7 @@ public class NWaveController {
 	
 	
     //http://yourdomain.com/inc?id={device_id}&time={message_time}&signal={signal}&station={station_id}&data={data} 
-    @RequestMapping(value = {"/inc","/"})
+    @RequestMapping(value = {"/inc"})
     public NWaveResponse processVersion1(@RequestParam(value="id", required=false, defaultValue="No ID") String device_id,
                              @RequestParam(value="time", required=false, defaultValue="No Time") String message_time,
                              @RequestParam(value="signal", required=false, defaultValue="No siginal") String signal,
@@ -41,12 +41,13 @@ public class NWaveController {
 		
 		
 		try {
+			String modemID = device_id + station_id;
 			NWaveModem modem;
-			if (modems.containsKey(device_id)) {
-				modem = modems.get(device_id);
+			if (modems.containsKey(modemID)) {
+				modem = modems.get(modemID);
 			} else {
 				modem = new NWaveModem(device_id,signal,station_id );
-				modems.put(device_id, modem);
+				modems.put(modemID, modem);
 			}
 			modem.addData(message_time, data);
 		} catch (Exception e) {
@@ -58,8 +59,9 @@ public class NWaveController {
     	
 	
     @SuppressWarnings("deprecation")
-	@RequestMapping(value = "/status" , method = RequestMethod.GET)
+	@RequestMapping(value = "/" , method = RequestMethod.GET)
     public String show(Model model) {
+    	Calendar calender = Calendar.getInstance();
         StringBuffer page = new StringBuffer();
         page.append("<!DOCTYPE html>");
         page.append("<html>");

@@ -1,5 +1,6 @@
 package uk.co.aquamatix;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,8 +30,8 @@ public class NWaveModem {
 		data.put(timeVal, new NWaveData(signal, station_id, timeVal, value));
 	}
 
-	public Map<Double, NWaveData> getData() {
-		return Collections.unmodifiableMap(data);
+	public Collection<NWaveData> getData() {
+		return Collections.unmodifiableCollection(data.values());
 	}
 
 	@Override

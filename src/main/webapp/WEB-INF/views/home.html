@@ -50,7 +50,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Messages</th>
-                    <th>View</th>
+                    <th>Data</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,9 +58,9 @@
                     <td th:text="${item.deviceID}"></td>
                     <td th:text="${item.messageCount}"></td>
                     <td>
-                        <form action="/addToBasket" method="POST">
+                        <form action="/modem" method="get">
                             <input id="id" name="id" type="hidden" th:value="${item.deviceID}"/>                
-                            <input type="submit" value="Go"/>
+                            <input type="submit" value="View"/>
                         </form>
                     </td>
 

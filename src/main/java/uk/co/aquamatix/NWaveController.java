@@ -79,7 +79,7 @@ public class NWaveController {
 		} else {
 			page.append("<table cellpadding='10'>");
 			page.append("<tr><th>Signal</th><th>Station ID</th><th>Time</th><th>Value</th></tr>");
-			for (NWaveData data : modem.getData().values()) {
+			for (NWaveData data : modem.getData()) {
 				page.append(data.toString());
 			}
 			page.append("</table>");

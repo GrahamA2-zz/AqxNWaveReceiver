@@ -8,30 +8,28 @@ import java.util.Collections;
 public class NWaveModem {
 
 	
-	private String device_id, signal, station_id;
+	private String device_id;
 
-	private Map<Double, String> data = new HashMap<Double, String>();
+	private Map<Double, NWaveData> data = new HashMap<Double, NWaveData>();
 	
 	
-	public NWaveModem(String device_id, String signal, String station_id) {
-		super();
+	public NWaveModem(String device_id ) {
 		this.device_id = device_id;
-		this.signal = signal;
-		this.station_id = station_id;
+
 	}
 	
-    public void addData(String time, String value) {
-    	data.put(Double.parseDouble(time),value);
+    public void addData(String signal, String station_id,String time, String value) {
+    	double timeVal = Double.parseDouble(time);
+    	data.put(timeVal, new NWaveData(signal, station_id, timeVal , value));
     }
     
-    public Map<Double, String> getData(){
+    public Map<Double, NWaveData> getData(){
     	return Collections.unmodifiableMap(data);
     }
     
     @Override
     public String toString() {
-    	// TODO Auto-generated method stub
-    	return "<tr><td>" + device_id + "</td><td>" + signal + "</td><td>" + station_id  + "</td><td>" + data.size() + "</td></tr>" ;
+    	return "<tr><td><a href=/data?id="+device_id +">" + device_id + "</a></td><td>" + data.size() + "</td></tr>" ;
     }
 
 }

@@ -41,15 +41,15 @@ public class NWaveController {
 		
 		
 		try {
-			String modemID = device_id + station_id;
+			String modemID = device_id;  //In case I need to use a composite key later
 			NWaveModem modem;
 			if (modems.containsKey(modemID)) {
 				modem = modems.get(modemID);
 			} else {
-				modem = new NWaveModem(device_id,signal,station_id );
+				modem = new NWaveModem(device_id );
 				modems.put(modemID, modem);
 			}
-			modem.addData(message_time, data);
+			modem.addData(signal,station_id, message_time, data);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -57,10 +57,12 @@ public class NWaveController {
 		return new NWaveResponse(counter.incrementAndGet(),device_id, message_time, signal, station_id , data );
     }
     	
-	
-    @SuppressWarnings("deprecation")
-	@RequestMapping(value = "/" , method = RequestMethod.GET)
-    public String show(Model model) {
+    
+    @RequestMapping(value = {"/data"})
+    public String processVersion1(@RequestParam(value="id", required=false, defaultValue="No ID") String device_id){
+		LOGGER.info(device_id );
+		NWaveModem modem = modems.get(device_id);
+			
     	Calendar calender = Calendar.getInstance();
         StringBuffer page = new StringBuffer();
         page.append("<!DOCTYPE html>");
@@ -68,19 +70,53 @@ public class NWaveController {
         page.append("<body>");
         page.append("<h1>AquamatiX NWave/BCA Test</h1>");
         page.append("<p>Server Time: " + calender.getTime().toGMTString() + "</p>");
-        if (modems.size() == 0) {
+        page.append("<h3>Modem: " + device_id+ "</h3>");
+        if (modem.getData().size() == 0) {
         	page.append("No Data");
         } else {
         	page.append("<table cellpadding='10'>");
-        	page.append("<tr><th>Device ID</th><th>Signal</th><th>Station ID</th><th>Messages</th></tr>");
-        	for (Map.Entry<String, NWaveModem> entry : modems.entrySet())
+        	page.append("<tr><th>Signal</th><th>Station ID</th><th>Time</th><th>Value</th></tr>");
+        	for (NWaveData data : modem.getData().values())
         	{
-        		page.append(entry.getValue().toString());
+        		page.append(data.toString());
         	}
         	page.append("</table>");
         }
         page.append("</body>");
         page.append("</html>");
     	return page.toString();
+    }
+	
+    @SuppressWarnings("deprecation")
+	@RequestMapping(value = "/" , method = RequestMethod.GET)
+    public String show(Model model) {
+    	Calendar calender = Calendar.getInstance();
+    	
+    	model.addAttribute(modems.values());
+    	model.addAttribute("RequestTime", calender.getTime().toGMTString());
+    	
+//        StringBuffer page = new StringBuffer();
+//        page.append("<!DOCTYPE html>");
+//        page.append("<html>");
+//        page.append("<body>");
+//        page.append("<h1>AquamatiX NWave/BCA Test</h1>");
+//        page.append("<p>Server Time: " + calender.getTime().toGMTString() + "</p>");
+//        if (modems.size() == 0) {
+//        	page.append("No Data");
+//        } else {
+//        	
+//        	page.append("<table cellpadding='10'>");
+//        	page.append("<tr><th>Device ID</th><th>Messages</th></tr>");
+//        	for (Map.Entry<String, NWaveModem> entry : modems.entrySet())
+//        	{
+//        		page.append(entry.getValue().toString());
+//        	}
+//        	page.append("</table>");
+//        }
+//        page.append("</body>");
+//        page.append("</html>");
+//    	return page.toString();
+    	return "Modems";
+    	
     }
 }

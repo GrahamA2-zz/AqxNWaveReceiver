@@ -22,6 +22,11 @@ public class NWaveController {
 
 	static {
 		LOGGER = LoggerFactory.getLogger(NWaveController.class);
+		modems.put("52360", new NWaveModem("52360"));
+		modems.put("52507", new NWaveModem("52507"));
+		modems.put("55979", new NWaveModem("55979"));
+		modems.put("57290", new NWaveModem("57290"));
+		modems.put("57290", new NWaveModem("57290"));
 	}
 
 	// http://yourdomain.com/inc?id={device_id}&time={message_time}&signal={signal}&station={station_id}&data={data}

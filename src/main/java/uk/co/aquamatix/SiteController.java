@@ -11,8 +11,7 @@ public class SiteController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getModems(Model model) {
-		model.addAttribute("message", NWaveController.modems.values());
-		model.addAttribute("message", "HELLO Graham");
-		return "status";
+		model.addAttribute("modems", NWaveController.modems.values());
+		return "home";
 	}
 }

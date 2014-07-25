@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,10 @@ public class NWaveController {
 
 	@Autowired
 	private ModemRepository modemRepository;
+
+	static {
+		LOGGER = LoggerFactory.getLogger(NWaveController.class);
+	}
 
 	// http://yourdomain.com/inc?id={device_id}&time={message_time}&signal={signal}&station={station_id}&data={data}
 	@RequestMapping("/inc")

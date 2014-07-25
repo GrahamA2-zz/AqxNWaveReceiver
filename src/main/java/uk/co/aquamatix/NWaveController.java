@@ -1,16 +1,16 @@
 package uk.co.aquamatix;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import uk.co.aquamatix.repository.ModemRepository;
 
 @RestController
 public class NWaveController {
@@ -18,16 +18,8 @@ public class NWaveController {
 	private final AtomicLong counter = new AtomicLong();
 	private static Logger LOGGER;
 
-	static Map<String, NWaveModem> modems = new HashMap<String, NWaveModem>();
-
-	static {
-		LOGGER = LoggerFactory.getLogger(NWaveController.class);
-		modems.put("52360", new NWaveModem("52360"));
-		modems.put("52507", new NWaveModem("52507"));
-		modems.put("55979", new NWaveModem("55979"));
-		modems.put("57290", new NWaveModem("57290"));
-		modems.put("57290", new NWaveModem("57290"));
-	}
+	@Autowired
+	private ModemRepository modemRepository;
 
 	// http://yourdomain.com/inc?id={device_id}&time={message_time}&signal={signal}&station={station_id}&data={data}
 	@RequestMapping("/inc")
@@ -41,14 +33,15 @@ public class NWaveController {
 				+ station_id + " " + data);
 
 		try {
-			String modemID = device_id; // In case I need to use a composite key
-										// later
+			String deviceID = device_id; // In case I need to use a composite
+											// key
+											// later
 			NWaveModem modem;
-			if (modems.containsKey(modemID)) {
-				modem = modems.get(modemID);
+			if (modemRepository.containsModem(deviceID)) {
+				modem = modemRepository.getModem(deviceID);
 			} else {
 				modem = new NWaveModem(device_id);
-				modems.put(modemID, modem);
+				modemRepository.addModem(modem);
 			}
 			modem.addData(signal, station_id, message_time, data);
 		} catch (Exception e) {
@@ -64,7 +57,7 @@ public class NWaveController {
 			@RequestParam(value = "id", required = false, defaultValue = "No ID") String device_id) {
 		// Old Data page replaced by Modem Controller
 		LOGGER.info(device_id);
-		NWaveModem modem = modems.get(device_id);
+		NWaveModem modem = modemRepository.getModem(device_id);
 
 		Calendar calender = Calendar.getInstance();
 		StringBuffer page = new StringBuffer();
@@ -96,7 +89,7 @@ public class NWaveController {
 		// Old version of the status page - replaced by a SiteController
 		Calendar calender = Calendar.getInstance();
 
-		model.addAttribute(modems.values());
+		model.addAttribute(modemRepository.getAllModems());
 		model.addAttribute("RequestTime", calender.getTime().toGMTString());
 
 		StringBuffer page = new StringBuffer();
@@ -106,14 +99,14 @@ public class NWaveController {
 		page.append("<h1>AquamatiX NWave/BCA Test</h1>");
 		page.append("<p>Server Time: " + calender.getTime().toGMTString()
 				+ "</p>");
-		if (modems.size() == 0) {
+		if (modemRepository.getAllModems().size() == 0) {
 			page.append("No Data");
 		} else {
 
 			page.append("<table cellpadding='10'>");
 			page.append("<tr><th>Device ID</th><th>Messages</th></tr>");
-			for (Map.Entry<String, NWaveModem> entry : modems.entrySet()) {
-				page.append(entry.getValue().toString());
+			for (NWaveModem entry : modemRepository.getAllModems()) {
+				page.append(entry);
 			}
 			page.append("</table>");
 		}

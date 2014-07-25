@@ -62,6 +62,7 @@ public class NWaveController {
 	@RequestMapping(value = { "/data" })
 	public String processVersion1(
 			@RequestParam(value = "id", required = false, defaultValue = "No ID") String device_id) {
+		// Old Data page replaced by Modem Controller
 		LOGGER.info(device_id);
 		NWaveModem modem = modems.get(device_id);
 
@@ -92,6 +93,7 @@ public class NWaveController {
 	@SuppressWarnings("deprecation")
 	@RequestMapping("/status")
 	public String show(Model model) {
+		// Old version of the status page - replaced by a SiteController
 		Calendar calender = Calendar.getInstance();
 
 		model.addAttribute(modems.values());

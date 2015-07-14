@@ -3,7 +3,7 @@ NWave
 
 
 
-  - Simple NWave REST servie
+  - Simple REST servie used to test [NWave](http://www.nwave.io/) transmitters
   - Deployes from a jar using SpringBoot
   - Stores data in /log
   - Runs on Port:80 set in \src\main\resources
@@ -14,9 +14,9 @@ URL to add data
 
 ```sh
 
-http://aqxtest.ddns.net/inc?id=66498642&time=56&signal=12&station=1096&data=28000000000000000000000
+http://<your_url>/inc?id=66498642&time=56&signal=12&station=1096&data=28000000000000000000000
 
-http://aqxtest.ddns.net/?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
+http://<your_url>/?id=66498642&time=14-07-11%2008:46:49&signal=12&station=1096&data=28000000000000000000000
 ```
 
 
@@ -24,7 +24,7 @@ URL check status of the service
 -----------
 
 ```sh
-http://aqxtest.ddns.net/status
+http://<your_url>/status
 
 ```
 
@@ -49,7 +49,7 @@ Version
 Tech
 -----------
 
-NWave uses Spring boot to create a simple self contained servlet container
+Uses Spring boot to create a simple self contained servlet container
 
 Running the Service
 --------------
@@ -90,9 +90,5 @@ You can alternatively run the app directly from Gradle like this:
 > **NOTE:**
 >  The procedure above will create a runnable JAR. You can also opt to build a classic [WAR](http://spring.io/guides/gs/convert-jar-to-war/) file instead.
 
-License
-----
-
-Aquamatix Development - Not for use in production environments
 
 

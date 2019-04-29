@@ -1,37 +1,43 @@
 package uk.co.aquamatix;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collections;
-
 
 public class NWaveModem {
 
-	
-	private String device_id, signal, station_id;
+	private String deviceID;
 
-	private Map<Double, String> data = new HashMap<Double, String>();
-	
-	
-	public NWaveModem(String device_id, String signal, String station_id) {
-		super();
-		this.device_id = device_id;
-		this.signal = signal;
-		this.station_id = station_id;
+	public String getDeviceID() {
+		return deviceID;
 	}
-	
-    public void addData(String time, String value) {
-    	data.put(Double.parseDouble(time),value);
-    }
-    
-    public Map<Double, String> getData(){
-    	return Collections.unmodifiableMap(data);
-    }
-    
-    @Override
-    public String toString() {
-    	// TODO Auto-generated method stub
-    	return "<tr><td>" + device_id + "</td><td>" + signal + "</td><td>" + station_id  + "</td><td>" + data.size() + "</td></tr>" ;
-    }
+
+	private Map<Double, NWaveData> data = new HashMap<Double, NWaveData>();
+
+	public NWaveModem(String device_id) {
+		this.deviceID = device_id;
+
+	}
+
+	public int getMessageCount() {
+		return data.size();
+	}
+
+	public void addData(String signal, String station_id, String time,
+			String value) {
+		double timeVal = Double.parseDouble(time);
+		data.put(timeVal, new NWaveData(signal, station_id, timeVal, value));
+	}
+
+	public Collection<NWaveData> getData() {
+		return Collections.unmodifiableCollection(data.values());
+	}
+
+	@Override
+	public String toString() {
+		return "<tr><td><a href=/data?id=" + deviceID + ">" + deviceID
+				+ "</a></td><td>" + data.size() + "</td></tr>";
+	}
 
 }

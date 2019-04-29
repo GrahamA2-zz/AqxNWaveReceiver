@@ -35,8 +35,8 @@ public class NWaveResponse {
 		
 		try {
 			//TODO Append to the file
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("./log/" + device_id + "_" + signal + "_" + station_id + ".csv", true)));
-			out.println(message_time + "," + data);
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("./log/" + device_id + ".csv", true)));
+			out.println(signal + "," + station_id + "," + message_time + "," + data);
 			out.flush();
             out.close();
 		} catch ( IOException e) {
